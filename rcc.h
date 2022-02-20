@@ -13,7 +13,7 @@ struct zmcu_rcc {
 	uint32_t volatile ICSCR;
 
 	/* 0x08: reserved */
-	uint32_t volatile RESERVED1;
+	uint8_t volatile RESERVED1[0x0C-0x08];
 
 	/* 0x0C: clock configuration register */
 	uint32_t volatile CFGR;

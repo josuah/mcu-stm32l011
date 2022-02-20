@@ -68,13 +68,13 @@ struct zmcu_lpuart {
 	uint32_t volatile BRR;
 
 	/* 0x10: reserved */
-	uint32_t volatile RESERVED1;
+	uint8_t volatile RESERVED1[0x14-0x10];
 
 	/* 0x14: reserved */
-	uint32_t volatile RESERVED2;
+	uint8_t volatile RESERVED2[0x18-0x14];
 
 	/* 0x18: reserved */
-	uint32_t volatile RESERVED3;
+	uint8_t volatile RESERVED3[0x18-0x18];
 
 	/* 0x18: request register */
 	uint32_t volatile RQR;
