@@ -1,7 +1,7 @@
-#include <zmcu.stm32l011.h>
+#include <sdk.stm32l011.h>
 
 void
-usart_enable(struct zmcu_usart *usart)
+usart_enable(struct sdk_usart *usart)
 {
 	if (usart == USART2)
 		RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
@@ -14,25 +14,25 @@ usart_enable(struct zmcu_usart *usart)
 }
 
 int
-usart_transmit_ready(struct zmcu_usart *usart)
+usart_transmit_ready(struct sdk_usart *usart)
 {
 	return usart->ISR & USART_ISR_TXE;
 }
 
 void
-usart_set_baud_rate(struct zmcu_usart *usart, uint16_t baud_rate)
+usart_set_baud_rate(struct sdk_usart *usart, uint16_t baud_rate)
 {
 	usart->BRR = 160000 / 96;
 }
 
 void
-usart_transmit_byte(struct zmcu_usart *usart, uint8_t byte)
+usart_transmit_byte(struct sdk_usart *usart, uint8_t byte)
 {
 	usart->TDR = byte;
 }
 
 int
-usart_transmit_done(struct zmcu_usart *usart)
+usart_transmit_done(struct sdk_usart *usart)
 {
 	return usart->ISR & USART_ISR_TC;
 }

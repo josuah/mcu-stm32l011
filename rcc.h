@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include <binary.h>
 
-#define RCC ((struct zmcu_rcc *)0x40021000)
+#define RCC ((struct sdk_rcc *)0x40021000)
 
-struct zmcu_rcc {
+struct sdk_rcc {
 
 	/* 0x00: control register */
 	uint32_t volatile CR;

@@ -2,14 +2,14 @@
 #include <stdint.h>
 #include <binary.h>
 
-#define GPIOA ((struct zmcu_gpio *)0x50000000)
-#define GPIOB ((struct zmcu_gpio *)0x50000400)
-#define GPIOC ((struct zmcu_gpio *)0x50000800)
-#define GPIOD ((struct zmcu_gpio *)0x50000C00)
-#define GPIOE ((struct zmcu_gpio *)0x50001000)
-#define GPIOH ((struct zmcu_gpio *)0x50001C00)
+#define GPIOA ((struct sdk_gpio *)0x50000000)
+#define GPIOB ((struct sdk_gpio *)0x50000400)
+#define GPIOC ((struct sdk_gpio *)0x50000800)
+#define GPIOD ((struct sdk_gpio *)0x50000C00)
+#define GPIOE ((struct sdk_gpio *)0x50001000)
+#define GPIOH ((struct sdk_gpio *)0x50001C00)
 
-struct zmcu_gpio {
+struct sdk_gpio {
 
 	/* 0x00: mode register */
 	uint32_t volatile MODER;
@@ -78,16 +78,16 @@ struct zmcu_gpio {
 };
 
 /* enable the port to use as GPIO */
-void gpio_enable(struct zmcu_gpio *gpio);
+void gpio_enable(struct sdk_gpio *gpio);
 
 /* setup a port in output mode */
-void gpio_mode_output(struct zmcu_gpio *gpio, uint8_t pin, uint8_t speed);
+void gpio_mode_output(struct sdk_gpio *gpio, uint8_t pin, uint8_t speed);
 
 /* setup a port in alternate function mode */
-void gpio_mode_altfn(struct zmcu_gpio *gpio, uint8_t pin, uint8_t altfn);
+void gpio_mode_altfn(struct sdk_gpio *gpio, uint8_t pin, uint8_t altfn);
 
 /* for each bit set on `mask`, set the same pin up on port `base` */
-void gpio_port_set(struct zmcu_gpio *gpio, uint8_t mask);
+void gpio_port_set(struct sdk_gpio *gpio, uint8_t mask);
 
 /* for each bit set on `mask`, set the same pin down on port `base` */
-void gpio_port_clear(struct zmcu_gpio *gpio, uint8_t mask);
+void gpio_port_clear(struct sdk_gpio *gpio, uint8_t mask);
