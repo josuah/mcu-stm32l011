@@ -1,7 +1,9 @@
-#include <sdk.stm32l011.h>
+#include "libc.h"
+#include "registers.h"
+#include "functions.h"
 
 void
-gpio_enable(struct sdk_gpio *gpio)
+gpio_enable(struct mcu_gpio *gpio)
 {
 	if (gpio == GPIOA)
 		RCC->IOPENR |= RCC_IOPENR_IOPAEN;
@@ -18,14 +20,14 @@ gpio_enable(struct sdk_gpio *gpio)
 }
 
 void
-gpio_mode_output(struct sdk_gpio *gpio, uint8_t pin, uint8_t speed)
+gpio_mode_output(struct mcu_gpio *gpio, uint8_t pin, uint8_t speed)
 {
 	gpio->OSPEEDR = GPIO_OSPEED(pin, speed);
 	gpio->MODER = GPIO_MODE(pin, GPIO_MODE_OUT);
 }
 
 void
-gpio_mode_altfn(struct sdk_gpio *gpio, uint8_t pin, uint8_t altfn)
+gpio_mode_altfn(struct mcu_gpio *gpio, uint8_t pin, uint8_t altfn)
 {
 	uint32_t reg;
 
@@ -39,13 +41,13 @@ gpio_mode_altfn(struct sdk_gpio *gpio, uint8_t pin, uint8_t altfn)
 }
 
 void
-gpio_port_set(struct sdk_gpio *gpio, uint8_t mask)
+gpio_port_set(struct mcu_gpio *gpio, uint8_t mask)
 {
 	gpio->ODR |= mask;
 }
 
 void
-gpio_port_clear(struct sdk_gpio *gpio, uint8_t mask)
+gpio_port_clear(struct mcu_gpio *gpio, uint8_t mask)
 {
 	gpio->ODR &= mask;
 }

@@ -1,4 +1,6 @@
-#include <sdk.stm32l011.h>
+#include "libc.h"
+#include "registers.h"
+#include "functions.h"
 
 void
 clock_msi_enable(void)

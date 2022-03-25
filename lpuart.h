@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include <binary.h>
 
-#define LPUART1 ((struct sdk_lpuart *)0x40004800)
+#define LPUART1 ((struct mcu_lpuart *)0x40004800)
 
-struct sdk_lpuart {
+struct mcu_lpuart {
 
 	/* 0x00: control register 1 */
 	uint32_t volatile CR1;
@@ -122,16 +122,16 @@ struct sdk_lpuart {
 };
 
 /* set the baudrate of the lpuart */
-void lpuart_set_baud_rate(struct sdk_lpuart *lpuart, uint16_t baud_rate);
+void lpuart_set_baud_rate(struct mcu_lpuart *lpuart, uint16_t baud_rate);
 
 /* true if the transmission buffer can receive more data */
-int lpuart_transmit_ready(struct sdk_lpuart *lpuart);
+int lpuart_transmit_ready(struct mcu_lpuart *lpuart);
 
 /* send a single byte through the transmit data register */
-void lpuart_transmit_byte(struct sdk_lpuart *lpuart, uint8_t byte);
+void lpuart_transmit_byte(struct mcu_lpuart *lpuart, uint8_t byte);
 
 /* true if each byte were transmitted */
-int lpuart_transmit_done(struct sdk_lpuart *lpuart);
+int lpuart_transmit_done(struct mcu_lpuart *lpuart);
 
 /* enable the lpuart peripheral */
-void lpuart_enable(struct sdk_lpuart *lpuart);
+void lpuart_enable(struct mcu_lpuart *lpuart);

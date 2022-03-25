@@ -2,12 +2,12 @@
 #include <stdint.h>
 #include <binary.h>
 
-#define USART1 ((struct sdk_usart *)0x40013800)
-#define USART2 ((struct sdk_usart *)0x40004400)
-#define USART4 ((struct sdk_usart *)0x40004C00)
-#define USART5 ((struct sdk_usart *)0x40005000)
+#define USART1 ((struct mcu_usart *)0x40013800)
+#define USART2 ((struct mcu_usart *)0x40004400)
+#define USART4 ((struct mcu_usart *)0x40004C00)
+#define USART5 ((struct mcu_usart *)0x40005000)
 
-struct sdk_usart {
+struct mcu_usart {
 
 	/* control register 1 */
 	uint32_t volatile CR1;
@@ -159,16 +159,16 @@ struct sdk_usart {
 };
 
 /* set the baud rate of the usart */
-void usart_set_baud_rate(struct sdk_usart *usart, uint16_t baud_rate);
+void usart_set_baud_rate(struct mcu_usart *usart, uint16_t baud_rate);
 
 /* true if the transmission buffer can receive more data */
-int usart_transmit_ready(struct sdk_usart *usart);
+int usart_transmit_ready(struct mcu_usart *usart);
 
 /* configure pins for input/output */
-void usart_transmit_byte(struct sdk_usart *usart, uint8_t byte);
+void usart_transmit_byte(struct mcu_usart *usart, uint8_t byte);
 
 /* true if each byte were transmitted */
-int usart_transmit_done(struct sdk_usart *usart);
+int usart_transmit_done(struct mcu_usart *usart);
 
 /* enable the usart peripheral */
-void usart_enable(struct sdk_usart *usart);
+void usart_enable(struct mcu_usart *usart);

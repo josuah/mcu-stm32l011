@@ -1,7 +1,9 @@
-#include <sdk.stm32l011.h>
+#include "libc.h"
+#include "registers.h"
+#include "functions.h"
 
 void
-lpuart_enable(struct sdk_lpuart *lpuart)
+lpuart_enable(struct mcu_lpuart *lpuart)
 {
 	if (lpuart == LPUART1)
 		RCC->APB1ENR |= RCC_APB1ENR_LPUART1EN;
@@ -10,7 +12,7 @@ lpuart_enable(struct sdk_lpuart *lpuart)
 }
 
 void
-lpuart_set_baud_rate(struct sdk_lpuart *lpuart, uint16_t baud_rate)
+lpuart_set_baud_rate(struct mcu_lpuart *lpuart, uint16_t baud_rate)
 {
 //	uint32_t fck = 32768;
 
@@ -20,19 +22,19 @@ lpuart_set_baud_rate(struct sdk_lpuart *lpuart, uint16_t baud_rate)
 }
 
 int
-lpuart_transmit_ready(struct sdk_lpuart *lpuart)
+lpuart_transmit_ready(struct mcu_lpuart *lpuart)
 {
 	return lpuart->ISR & LPUART_ISR_TXE;
 }
 
 void
-lpuart_transmit_byte(struct sdk_lpuart *lpuart, uint8_t byte)
+lpuart_transmit_byte(struct mcu_lpuart *lpuart, uint8_t byte)
 {
 	lpuart->TDR = byte;
 }
 
 int
-lpuart_transmit_done(struct sdk_lpuart *lpuart)
+lpuart_transmit_done(struct mcu_lpuart *lpuart)
 {
 	return !!(lpuart->ISR & LPUART_ISR_TC);
 }
