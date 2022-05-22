@@ -24,9 +24,6 @@ ocd:
 gdb:
 	${GDB} -x ${SDK}/script.gdb
 
-firmware.elf: ${SDK_OBJ} ${OBJ}
-	${LD} ${SDK_LDFLAGS} ${LDFLAGS} -o $@ ${SDK_OBJ} ${OBJ}
-
 flash.avrdude: firmware.hex
 	${AVRDUDE} -qu -P ${PORT} -U flash:w:firmware.hex
 
@@ -39,13 +36,13 @@ flash.mount: firmware.uf2
 flash.openocd: firmware.hex
 	${OPENOCD} -c 'program firmware.hex verify reset exit'
 
+firmware.elf: ${SDK_OBJ} ${OBJ}
+	${LD} ${SDK_LDFLAGS} ${LDFLAGS} -o $@ ${SDK_OBJ} ${OBJ}
+
 .SUFFIXES: .c .s .S .o .elf .bin .asm .hex .uf2
 
 .c.o:
-.S.o:
-
-.c.s:
-	${CC} ${SDK_CPPFLAGS} ${CPPFLAGS} ${SDK_CFLAGS} ${CFLAGS} -S -o $@ $<
+	${CC} ${SDK_CPPFLAGS} ${CPPFLAGS} ${SDK_CFLAGS} ${CFLAGS} -c -o $@ $<
 
 .S.s:
 	${CPP} ${SDK_CPPFLAGS} ${CPPFLAGS} -o $@ $<
