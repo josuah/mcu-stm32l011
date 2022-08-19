@@ -1,13 +1,5 @@
-OBJCOPY = arm-none-eabi-objcopy
-OBJDUMP = arm-none-eabi-objdump
-CPP = arm-none-eabi-cpp
-CC = arm-none-eabi-gcc -mthumb -mcpu=cortex-m0plus -msoft-float
-AS = arm-none-eabi-as -mthumb
-LD = arm-none-eabi-ld
-AR = arm-none-eabi-ar
-GDB = arm-none-eabi-gdb
-OPENOCD = openocd -f interface/stlink.cfg -f target/stm32l0.cfg
-SDK_OBJ = ${SDK}/init.o ${SDK}/gpio.o ${SDK}/usart.o ${SDK}/lpuart.o
+include config.mk
+
 SDK_CFLAGS = -ffunction-sections -fdata-sections
 SDK_LDFLAGS = -Map=firmware.map --gc-sections -T${SDK}/script.ld -nostdlib -static
 SDK_CPPFLAGS = -I${SDK}
@@ -42,7 +34,10 @@ firmware.elf: ${SDK_OBJ} ${OBJ}
 .SUFFIXES: .c .s .S .o .elf .bin .asm .hex .uf2
 
 .c.o:
-	${CC} ${SDK_CPPFLAGS} ${CPPFLAGS} ${SDK_CFLAGS} ${CFLAGS} -c -o $@ $<
+.S.o:
+
+.c.s:
+	${CC} ${SDK_CPPFLAGS} ${CPPFLAGS} ${SDK_CFLAGS} ${CFLAGS} -S -o $@ $<
 
 .S.s:
 	${CPP} ${SDK_CPPFLAGS} ${CPPFLAGS} -o $@ $<
